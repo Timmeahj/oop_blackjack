@@ -17,7 +17,11 @@ error_reporting(E_ALL);
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
+    <div class="title">BlackJack</div><br/>
+    <div class="wrap">
         <a href="game.php"><button>Play</button></a>
+    </div>
+
     <script src="script.js"></script>
     </body>
     </html>

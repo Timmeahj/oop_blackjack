@@ -25,43 +25,23 @@ class Blackjack
             $_SESSION['dealerCards'] = $_SESSION['dealer']->getCards();
         } while ($_SESSION['dealerScore'] < 15);
         if($_SESSION['dealerScore'] > 21){
-            echo "dealer loses";
-            $_SESSION['playerScore'] = null;
-            $_SESSION['playerCards'] = null;
-            $_SESSION['dealerScore'] = null;
-            $_SESSION['dealerCards'] = null;
-            echo "<form><button class=\"again\" type=\"submit\" name=\"action\" value=\"again\">Play again</button></form>";
+            $_SESSION['message'] = "You win!";
         } else{
             if($_SESSION['dealerScore'] >= $_SESSION['playerScore']){
-                echo "dealer wins";
-                $_SESSION['playerScore'] = null;
-                $_SESSION['playerCards'] = null;
-                $_SESSION['dealerScore'] = null;
-                $_SESSION['dealerCards'] = null;
-                echo "<form><button class=\"again\" type=\"submit\" name=\"action\" value=\"again\">Play again</button></form>";
+                $_SESSION['message'] = "You lose.";
             } else{
-                echo "you win";
-                $_SESSION['playerScore'] = null;
-                $_SESSION['playerCards'] = null;
-                $_SESSION['dealerScore'] = null;
-                $_SESSION['dealerCards'] = null;
-                echo "<form><button class=\"again\" type=\"submit\" name=\"action\" value=\"again\">Play again</button></form>";
+                $_SESSION['message'] = "You win!";
             }
         }
     }
 
-    public function surrender() {
+    public function surrender(Blackjack $dealer) {
         do {
-            $_SESSION['dealer']->hit();
+            $dealer->hit();
             $_SESSION['dealerScore'] = $dealer->getScore();
             $_SESSION['dealerCards'] = $dealer->getCards();
-        } while ($_SESSION['dealerScore'] < 15);
-        echo "you lost, dealer score: ".$_SESSION['dealerScore'];
-        $_SESSION['playerScore'] = null;
-        $_SESSION['playerCards'] = null;
-        $_SESSION['dealerScore'] = null;
-        $_SESSION['dealerCards'] = null;
-        echo "<form><button class=\"again\" type=\"submit\" name=\"action\" value=\"again\">Play again</button></form>";
+        } while ($dealer->getScore() < 15);
+        $_SESSION['message'] = "You lose, dealer score: ".$dealer->getScore()."<br/>";
     }
 
     public function getScore(){
